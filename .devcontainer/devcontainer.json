@@ -1,0 +1,45 @@
+{
+  // Name shown in the Codespaces UI
+  "name": "QTrader Dev",
+
+  // The container definition – we’ll build from the Dockerfile below
+  "build": {
+    "dockerfile": "Dockerfile.dev",        // Use a lightweight dev image we control
+    "context": "."                         // Build from repo root
+  },
+
+  // Default shell and features
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash"  // Prefer bash for scripts
+  },
+
+  // Extensions (nice to have but optional)
+  "extensions": [
+    "ms-azuretools.vscode-docker",         // Docker panel and syntax
+    "esbenp.prettier-vscode",              // Formatting for JS/TS
+    "ms-python.python"                     // Python extension (if you add py services)
+  ],
+
+  // Post-create commands that run once after the container is built
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+
+  // Ports to forward from the container to your browser
+  "forwardPorts": [3000, 4000],            // 3000: web, 4000: api (example)
+
+  // Features for extra tooling (Node is common for web/frontends)
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"                      // Install Node.js 20 into the dev container
+    }
+  },
+
+  // Automatically run docker-compose for our stack when the container starts
+  "customizations": {
+    "codespaces": {
+      "openFiles": ["README.md"]           // Opens README when the workspace loads
+    }
+  },
+
+  // Keep the container small & secure by default
+  "remoteUser": "vscode"                   // Run as non-root user
+}
