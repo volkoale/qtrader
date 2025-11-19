@@ -1,0 +1,6 @@
+version: 2                                   # Dependabot config version
+updates:
+  - package-ecosystem: "github-actions"      # Keep GitHub Actions versions fresh (security & fixes)
+    directory: "/"                           # Look for workflows in repo root
+    schedule:
+      interval: "weekly"                     # Open update PRs once a week (reasonable cadence)
