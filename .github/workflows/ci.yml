@@ -1,8 +1,5 @@
 name: ci                           # Shown in Actions tab
-on:
-  pull_request:                    # Run on every PR (so you can require it)
-  push:
-    branches: [main]               # Also run on pushes to main
+on: [pull_request, push, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest         # GitHub-hosted Linux runner
