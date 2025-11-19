@@ -1,0 +1,7 @@
+# CODEOWNERS tells GitHub who must review changes to matching paths.  <-- purpose
+
+*            @volkoale    # Default owner for all files (replace with your username)
+
+# Examples you can uncomment later to split ownership by area:
+# /src/api/   @YOUR_GH_USERNAME   # API changes request your review automatically
+# /src/web/   @YOUR_GH_USERNAME   # Web UI changes request your review automatically
