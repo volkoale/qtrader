@@ -1,0 +1,12 @@
+# Base image: minimal Linux with common tools (bash, curl, git)
+FROM mcr.microsoft.com/devcontainers/base:ubuntu
+
+# Why: Install yq for YAML tooling (used later in gitops); not mandatory but handy
+RUN curl -sL https://github.com/mikefarah/yq/releases/download/v4.44.3/yq_linux_amd64 \
+    -o /usr/local/bin/yq && chmod +x /usr/local/bin/yq
+
+# Why: Ensure git is set up to avoid warnings
+RUN git config --system --add safe.directory /workspaces/qtrader
+
+# Final: the base image will create a non-root "vscode" user; we’ll use it
+USER vscode
