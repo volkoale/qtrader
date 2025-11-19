@@ -1,0 +1,56 @@
+version: "3.9"                              # Compose file format version
+
+services:
+  web:                                      # Next.js or any frontend dev server
+    build:
+      context: ./web                        # Build from web folder (we’ll scaffold it soon)
+      dockerfile: Dockerfile                # Use the web Dockerfile in that folder
+    command: ["npm", "run", "dev"]          # Start a dev server with hot reload
+    ports:
+      - "3000:3000"                         # Expose web on http://localhost:3000
+    environment:
+      - API_URL=http://api:4000             # Internal service-to-service URL
+    depends_on:
+      - api                                 # Wait for api container
+    volumes:
+      - ./web:/app                          # Mount code for live reload
+    networks: [qtrader]
+
+  api:                                      # Simple Node/Express placeholder API
+    build:
+      context: ./services/api
+      dockerfile: Dockerfile
+    command: ["npm", "run", "dev"]          # Nodemon or ts-node in dev
+    ports:
+      - "4000:4000"                         # Expose API on http://localhost:4000
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/postgres
+      - REDIS_URL=redis://cache:6379
+    depends_on:
+      - db
+      - cache
+    volumes:
+      - ./services/api:/app
+    networks: [qtrader]
+
+  db:                                       # Postgres database for local dev
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_PASSWORD=postgres          # Dev password (fine for local only)
+    ports:
+      - "5432:5432"                         # Allow local DB tools to connect
+    volumes:
+      - pgdata:/var/lib/postgresql/data     # Persist data between restarts
+    networks: [qtrader]
+
+  cache:                                    # Redis cache/session store
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    networks: [qtrader]
+
+networks:
+  qtrader: {}                               # Isolated network for this stack
+
+volumes:
+  pgdata: {}                                # Named volume for Postgres data
