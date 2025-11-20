@@ -1,0 +1,10 @@
+{
+  "name": "qtrader-api",
+  "private": true,
+  "scripts": {
+    "dev": "node index.js"      // Simple dev script; swap to nodemon later
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
