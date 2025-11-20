@@ -1,0 +1,8 @@
+{
+  "name": "qtrader-web",
+  "private": true,
+  "scripts": {
+    "dev": "node server.js"     // Simple dev server; replace with next dev or vite later
+  },
+  "dependencies": {}
+}
