@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest         # GitHub-hosted Linux runner
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4  # Puts your repo on the runner
+        uses: actions/checkout@v6  # Puts your repo on the runner
       - name: Repo sanity checks
         run: |
           test -f README.md        # Fail if README is missing (simple guard)
